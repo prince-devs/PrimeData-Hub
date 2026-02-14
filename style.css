@@ -238,3 +238,123 @@ footer p {
 .card-list {
     margin-bottom: 30px;
 }
+
+.referral-section {
+    background: #fdfdfd;
+    border: 2px dashed #32CD32;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.referral-section input {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    width: 90%;
+    margin-bottom: 10px;
+}
+
+.referral-section button {
+    background: #32CD32;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.share-btn {
+    display: inline-block;
+    margin-top: 10px;
+    color: #25D366;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.rewards-container {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eef2f3;
+}
+
+.rewards-title {
+    font-size: 1.2rem;
+    color: #222;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.rewards-subtitle {
+    font-size: 0.8rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.rewards-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.rewards-table th {
+    text-align: left;
+    padding: 10px;
+    background: #f8f9fa;
+    color: #444;
+    border-bottom: 2px solid #32CD32;
+    /* Your Lemon Green color */
+}
+
+.rewards-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #eee;
+    color: #555;
+}
+
+/* VIP Highlight */
+.vip-row {
+    background-color: #fff9e6;
+    font-weight: bold;
+}
+
+/* Badges */
+.badge {
+    padding: 4px 8px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: white;
+}
+
+.bronze {
+    background: #cd7f32;
+}
+
+.silver {
+    background: #c0c0c0;
+}
+
+.gold {
+    background: #ffd700;
+    color: #444;
+}
+
+.diamond {
+    background: #b9f2ff;
+    color: #333;
+}
+
+.terms-text {
+    font-size: 0.65rem;
+    color: #999;
+    margin-top: 15px;
+    text-align: center;
+    font-style: italic;
+}
