@@ -208,6 +208,15 @@ body {
     color: #1E88E5;
 }
 
+.card-yellow {
+    background-color: #F3E5F5;
+    /* Light Lavender */
+}
+
+.card-yellow .tag {
+    color: #cf63ed;
+}
+
 
 /* Bottom Navigation */
 .bottom-nav {
@@ -284,7 +293,7 @@ footer p {
 }
 
 .rewards-title {
-    font-size: 1.2rem;
+    font-size: 0.2rem;
     color: #222;
     text-align: center;
     margin-bottom: 5px;
