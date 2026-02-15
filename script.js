@@ -1,66 +1,76 @@
-// 1. Generate the Link using Phone Number
+// 1. Generate Link (Run on refer.html)
 function generateReferral() {
-    const phone = document.getElementById('referrer-name').value.trim();
+    const phoneInput = document.getElementById('referrer-name');
+    const resultBox = document.getElementById('referral-result');
 
-    // Basic validation for a 10-digit Ghana number
-    const phoneRegex = /^[0-9]{10}$/;
+    // Safety check: ensure we are on the page with the input
+    if (!phoneInput) return;
 
-    if (!phoneRegex.test(phone)) {
-        alert("Please enter a valid 10-digit phone number (e.g., 0503747048)");
+    const phone = phoneInput.value.trim();
+
+    // Validate Phone Number
+    if (!/^[0-9]{10}$/.test(phone)) {
+        alert("Please enter a valid 10-digit phone number.");
         return;
     }
 
-    const baseUrl = window.location.href.split('?')[0];
-    const finalLink = `${baseUrl}?ref=${phone}`;
+    // --- CRITICAL FIX START ---
+    // This forces the link to always go to 'index.html', not 'refer.html'
+    const cleanOrigin = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+    const finalLink = `${cleanOrigin}/index.html?ref=${phone}`;
+    // --- CRITICAL FIX END ---
 
     document.getElementById('referral-link').value = finalLink;
-    document.getElementById('referral-result').style.display = 'block';
+    resultBox.style.display = 'block';
 
-    // Set WhatsApp share message
-    const waMessage = `Hi! Use PrimeData Hub for the cheapest data bundles in Ghana. Use my link to get a bonus: ${finalLink}`;
-    document.getElementById('whatsapp-share').href = `https://wa.me/?text=${encodeURIComponent(waMessage)}`;
+    // WhatsApp Share Button
+    const msg = `Get cheap data on PrimeData! Use my link: ${finalLink}`;
+    document.getElementById('whatsapp-share').href = `https://wa.me/?text=${encodeURIComponent(msg)}`;
 }
 
-// 2. Copy Link to Clipboard
-function copyLink() {
-    const copyText = document.getElementById('referral-link');
-    copyText.select();
-    copyText.setSelectionRange(0, 99999); // For mobile devices
-    document.execCommand("copy");
-    alert("Referral link copied! Share it to start earning.");
-}
-
-// 3. Handle the Referral when a customer visits
+// 2. Handle Visits (Runs on index.html)
 window.onload = function () {
-    // Greeting logic (Keep your existing time-based greeting here)
-    updateGreeting();
+    updateGreeting(); // Updates "Good Morning" text
 
+    // Check URL for referral code (e.g., ?ref=0501234567)
     const urlParams = new URLSearchParams(window.location.search);
-    const referrerPhone = urlParams.get('ref');
+    const referrer = urlParams.get('ref');
 
-    if (referrerPhone) {
-        // Find the "Purchase Data" card
+    if (referrer) {
+        // Find the Purchase Card (Orange)
         const purchaseBtn = document.querySelector('.card-orange');
 
-        // This pre-fills your WhatsApp message so you know exactly who to reward
-        // Example: "Hi PrimeData, I want to buy data. My referral code is 0503747048"
-        const customMsg = `Hi PrimeData Hub, I want to buy data. My referral code is ${referrerPhone}`;
+        // Safety Check: Only run if the button exists on this page
+        if (purchaseBtn) {
+            // Logic: Hijack the link to send a pre-filled WhatsApp message
+            const adminNumber = "233503747048"; // Your number
+            const text = `Hi Admin, I want to buy data. I was referred by: ${referrer}`;
 
-        // Update the link to your WhatsApp number
-        purchaseBtn.href = `https://wa.me/233503747048?text=${encodeURIComponent(customMsg)}`;
+            purchaseBtn.href = `https://wa.me/${adminNumber}?text=${encodeURIComponent(text)}`;
 
-        // Optional: Show a small welcome message to the new customer
-        console.log("Customer referred by: " + referrerPhone);
+            // Visual feedback (Optional)
+            purchaseBtn.querySelector('p').innerText += " ✅";
+        }
     }
 };
 
+// 3. Greeting Logic
 function updateGreeting() {
-    const greetingElement = document.getElementById('greeting-text');
-    if (!greetingElement) return;
-    const hour = new Date().getHours();
-    let msg = "Hello,";
-    if (hour < 12) msg = "Good Morning! ☀️";
-    else if (hour < 17) msg = "Good Afternoon! 🌤️";
-    else msg = "Good Evening! 🌙";
-    greetingElement.textContent = msg;
+    const textElement = document.getElementById('greeting-text');
+    if (textElement) {
+        const hour = new Date().getHours();
+        if (hour < 12) textElement.innerText = "Good Morning! ☀️";
+        else if (hour < 18) textElement.innerText = "Good Afternoon! 🌤️";
+        else textElement.innerText = "Good Evening! 🌙";
+    }
+}
+
+// 4. Copy Function
+function copyLink() {
+    const link = document.getElementById('referral-link');
+    if (link) {
+        link.select();
+        document.execCommand("copy");
+        alert("Referral link copied! Share it to start earning.");
+    }
 }
